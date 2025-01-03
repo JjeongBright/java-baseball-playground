@@ -1,4 +1,6 @@
-public class output {
+package view;
+
+public class Output {
 
     public void getPlayerInputNumber() {
         System.out.println("숫자를 입력해 주세요");

@@ -1,10 +1,12 @@
+package view;
+
 import java.util.Scanner;
 
-public class input {
+public class Input {
 
     private final Scanner scanner;
 
-    public input() {
+    public Input() {
         this.scanner = new Scanner(System.in);
     }
 
