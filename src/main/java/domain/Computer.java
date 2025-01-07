@@ -1,20 +1,21 @@
 package domain;
 
+import util.Converter;
 import util.RandomNumberGenerator;
 
+import java.util.List;
 import java.util.Set;
 
 public class Computer {
 
-    private final RandomNumberGenerator randomNumberGenerator;
+    private final Converter converter;
 
-
-    public Computer(RandomNumberGenerator randomNumberGenerator) {
-        this.randomNumberGenerator = new RandomNumberGenerator();
+    public Computer() {
+        this.converter = new Converter();
     }
 
-    public Set<Integer> initComputerNumber() {
-        return randomNumberGenerator.generateOpponentNumbers();
+    public List<Integer> initComputerNumber() {
+        return converter.convertList();
     }
 
 }

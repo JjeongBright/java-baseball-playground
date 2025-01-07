@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 public class Input {
 
-    private final Scanner scanner;
+    private static Scanner scanner;
 
     public Input() {
-        this.scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
     }
 
-    public String playerInputNumber() {
+    public static String playerInputNumber() {
         return scanner.next();
     }
 
