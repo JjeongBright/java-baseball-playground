@@ -1,29 +1,25 @@
 package service;
 
 import domain.Computer;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import view.Input;
-import view.Output;
+import view.InputView;
+import view.OutputView;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.Predicate;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GameServiceTest {
 
-    Input input = new Input();
+    InputView inputView = new InputView();
     Scanner scanner = new Scanner(System.in);
-    Output output = new Output();
+    OutputView outputView = new OutputView();
 
     @Test
     public void testGame() throws Exception {
         GameService gameService = new GameService();
         String next = "159";
 
-        output.printResult(gameService.startGame(next));
+        outputView.printResult(gameService.executeGameRound(next));
     }
 
     @Test

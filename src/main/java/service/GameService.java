@@ -2,12 +2,8 @@ package service;
 
 import domain.Computer;
 import domain.Player;
-import domain.Result;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class GameService {
 
@@ -19,11 +15,12 @@ public class GameService {
         this.player = new Player();
     }
 
-    public String startGame(String playerBall) throws Exception {
-        List<Integer> computerBall = computer.initComputerNumber();
-        validateUserNumber(playerBall);
+    public List<Integer> computerNumber() {
+        return computer.initComputerNumber();
+    }
 
-        return calculateResult(playerBall, computerBall);
+    public void initUserSetting() {
+        player.resetNumber();
     }
 
     private void validateUserNumber(String playerBall) throws Exception {
@@ -32,40 +29,32 @@ public class GameService {
         player.playerNumberLengthLimit(playerBall);
     }
 
-    private String calculateResult(String playerBall, List<Integer> computerBall) {
-        int ballCount = 0;
-        int strikeCount = 0;
-
+    public String progressBaseball(String playerBall, List<Integer> computerBall) throws Exception {
+        validateUserNumber(playerBall);
 
         for (int i = 0; i < playerBall.length(); i++) {
             int convertPlayerBall = Character.getNumericValue(playerBall.charAt(i));
 
-            ballCount = checkBall(computerBall, convertPlayerBall, ballCount);
-            strikeCount = checkStrike(i, computerBall, convertPlayerBall, strikeCount);
+            updateUserCount(i, computerBall, convertPlayerBall);
         }
 
-        Result result = new Result(strikeCount, ballCount);
-        return result.toString();
+        return player.generateResult(player.getStrikeCount(), player.getBallCount());
     }
 
-    private int checkBall(List<Integer> computerBall,
-                           int comparePlayerBall, int ballCount) {
-
-        if(computerBall.contains(comparePlayerBall)) {
-            return ++ballCount;
-        }
-
-        return 0;
-
-    }
-
-    private int checkStrike(int idx, List<Integer> computerBall,
-                           int comparePlayerBall, int strikeCount) {
+    private void updateUserCount(int idx, List<Integer> computerBall,
+                                 int comparePlayerBall) {
 
         if(computerBall.get(idx).equals(comparePlayerBall)) {
-            return ++strikeCount;
+            player.incrementStrikeCount();
         }
-        return 0;
+
+        else if(computerBall.contains(comparePlayerBall)) {
+            player.incrementBallCount();
+        }
+    }
+
+    public boolean checkGameOver() {
+        return player.getStrikeCount() == 3;
     }
 
 }
